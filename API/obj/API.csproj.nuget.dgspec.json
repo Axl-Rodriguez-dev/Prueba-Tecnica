@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\drago\\Downloads\\Prueba-Tecnica\\API\\API.csproj": {}
+    "C:\\Users\\drago\\Documents\\GitHub\\Prueba-Tecnica\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\drago\\Downloads\\Prueba-Tecnica\\API\\API.csproj": {
+    "C:\\Users\\drago\\Documents\\GitHub\\Prueba-Tecnica\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\drago\\Downloads\\Prueba-Tecnica\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\drago\\Documents\\GitHub\\Prueba-Tecnica\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\drago\\Downloads\\Prueba-Tecnica\\API\\API.csproj",
+        "projectPath": "C:\\Users\\drago\\Documents\\GitHub\\Prueba-Tecnica\\API\\API.csproj",
         "packagesPath": "C:\\Users\\drago\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\drago\\Downloads\\Prueba-Tecnica\\API\\obj\\",
+        "outputPath": "C:\\Users\\drago\\Documents\\GitHub\\Prueba-Tecnica\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -66,9 +66,9 @@
               "target": "Package",
               "version": "[10.0.0, )"
             },
-            "System.Diagnostics.Tools": {
+            "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[4.3.0, )"
+              "version": "[10.0.1, )"
             }
           },
           "imports": [

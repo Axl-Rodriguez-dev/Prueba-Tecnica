@@ -1,4 +1,5 @@
 using API.Data;
+using API.Interfaces;
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,7 +7,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController(IProductRepository repository) : ControllerBase
+    public class ProductsController(IProductRepository repository, ICsvExportService csvExportService) : ControllerBase
     {
         [HttpGet]
         public async Task<ActionResult<List<AppProduct>>> Get()
@@ -54,6 +55,15 @@ namespace API.Controllers
             {
                 return Conflict(ex.Message);
             }
+        }
+
+        [HttpGet("export")]
+        public async Task<IActionResult> ExportToCsv()
+        {
+            var products = await repository.GetAll();
+            var csvData = csvExportService.ExportToCsv(products);
+            
+            return File(csvData, "text/csv", $"products_{DateTime.Now:yyyyMMddHHmmss}.csv");
         }
     }
 }
