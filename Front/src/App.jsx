@@ -41,7 +41,7 @@ export default function App() {
         Autor Axl Rodriguez Desarrollado como parte de la Prueba Técnica Junior para PERMODA.
       </footer>
       <ToastContainer
-        position="bottom-right"
+        position='bottom-right'
         autoClose={4000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -50,7 +50,7 @@ export default function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme='light'
         toastStyle={{
           fontSize: '14px',
           fontFamily: 'inherit'
