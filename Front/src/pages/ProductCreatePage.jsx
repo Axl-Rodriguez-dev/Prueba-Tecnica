@@ -1,20 +1,27 @@
 import { useNavigate } from 'react-router-dom'
 import { FaPlus } from 'react-icons/fa'
+import { toast } from 'react-toastify'
 import { createProduct } from '../services/api'
 import ProductForm from '../components/ProductForm'
 
 export default function ProductCreatePage() {
   const navigate = useNavigate()
   async function handleCreate(values) {
-    const payload = {
-      Nombre: values.nombre,
-      Sku: values.sku,
-      Precio: Number(values.precio),
-      Stock: Number(values.stock),
-      Categoria: values.categoria
+    try {
+      const payload = {
+        Nombre: values.nombre,
+        Sku: values.sku,
+        Precio: Number(values.precio),
+        Stock: Number(values.stock),
+        Categoria: values.categoria
+      }
+      const created = await createProduct(payload)
+      toast.success('Producto creado exitosamente')
+      navigate(`/products/${created.id}`)
+    } catch (error) {
+      console.error('Error creating product:', error)
+      toast.error('Error al crear el producto')
     }
-    const created = await createProduct(payload)
-    navigate(`/products/${created.id}`)
   }
   return (
     <div className='space-y-6'>

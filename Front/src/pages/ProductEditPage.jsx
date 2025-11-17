@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { FaTimes, FaEdit } from 'react-icons/fa'
 import { ImSpinner2 } from 'react-icons/im'
+import { toast } from 'react-toastify'
 import { getProduct, updateProduct } from '../services/api'
 import ProductForm from '../components/ProductForm'
 
@@ -11,28 +12,38 @@ export default function ProductEditPage() {
   const [product, setProduct] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  async function load() {
-    setLoading(true)
-    try {
-      setProduct(await getProduct(id))
-    } finally {
-      setLoading(false)
-    }
-  }
   useEffect(() => {
-    load()
+    async function loadProduct() {
+      setLoading(true)
+      try {
+        const productData = await getProduct(id)
+        setProduct(productData)
+      } catch (error) {
+        console.error('Error loading product:', error)
+        toast.error('Error al cargar el producto')
+      } finally {
+        setLoading(false)
+      }
+    }
+    loadProduct()
   }, [id])
 
   async function handleUpdate(values) {
-    const payload = {
-      Nombre: values.nombre,
-      Sku: values.sku,
-      Precio: Number(values.precio),
-      Stock: Number(values.stock),
-      Categoria: values.categoria
+    try {
+      const payload = {
+        Nombre: values.nombre,
+        Sku: values.sku,
+        Precio: Number(values.precio),
+        Stock: Number(values.stock),
+        Categoria: values.categoria
+      }
+      const updated = await updateProduct(id, payload)
+      toast.success('Producto actualizado exitosamente')
+      navigate(`/products/${updated.id}`)
+    } catch (error) {
+      console.error('Error updating product:', error)
+      toast.error('Error al actualizar el producto')
     }
-    const updated = await updateProduct(id, payload)
-    navigate(`/products/${updated.id}`)
   }
 
   return (

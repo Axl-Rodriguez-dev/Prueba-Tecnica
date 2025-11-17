@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { FaSearch, FaSync, FaFileExport, FaPlus } from 'react-icons/fa'
+import { toast } from 'react-toastify'
 import { exportProduct, listProducts } from '../services/api'
 import ProductList from '../components/ProductList'
 import { Link } from 'react-router-dom'
@@ -9,10 +10,17 @@ export default function ProductsListPage() {
   const [loading, setLoading] = useState(false)
   const [search, setSearch] = useState('')
 
-  async function load() {
+  async function load(showSuccessToast = false) {
     setLoading(true)
     try {
-      setProducts(await listProducts())
+      const productList = await listProducts()
+      setProducts(productList)
+      if (showSuccessToast) {
+        toast.success('Productos cargados exitosamente')
+      }
+    } catch (error) {
+      console.error('Error loading products:', error)
+      toast.error('Error al cargar los productos')
     } finally {
       setLoading(false)
     }
@@ -28,9 +36,10 @@ export default function ProductsListPage() {
       link.click()
       document.body.removeChild(link)
       window.URL.revokeObjectURL(url)
+      toast.success('Archivo CSV exportado exitosamente')
     } catch (error) {
       console.error('Error al exportar:', error)
-      alert('Error al exportar el archivo CSV')
+      toast.error('Error al exportar el archivo CSV')
     }
   }
 
@@ -59,7 +68,7 @@ export default function ProductsListPage() {
           Limpiar
         </button>
         <button
-          onClick={load}
+          onClick={() => load(true)}
           disabled={loading}
           className='px-4 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white text-sm font-medium cursor-pointer transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 flex items-center gap-2'
         >

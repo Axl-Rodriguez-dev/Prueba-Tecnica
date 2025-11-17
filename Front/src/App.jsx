@@ -1,5 +1,7 @@
 import { Routes, Route, Link, Navigate } from 'react-router-dom'
 import { MdInventory } from 'react-icons/md'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import ProductsListPage from './pages/ProductsListPage'
 import ProductCreatePage from './pages/ProductCreatePage'
 import ProductDetailPage from './pages/ProductDetailPage'
@@ -38,6 +40,22 @@ export default function App() {
       <footer className='text-xs text-gray-500 text-center py-8 bg-white/50 backdrop-blur-sm border-t border-gray-200 mt-auto'>
         Autor Axl Rodriguez Desarrollado como parte de la Prueba Técnica Junior para PERMODA.
       </footer>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        toastStyle={{
+          fontSize: '14px',
+          fontFamily: 'inherit'
+        }}
+      />
     </div>
   )
 }

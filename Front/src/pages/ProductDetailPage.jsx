@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { FaArrowLeft, FaEdit } from 'react-icons/fa'
 import { ImSpinner2 } from 'react-icons/im'
+import { toast } from 'react-toastify'
 import { getProduct } from '../services/api'
 import ProductDetail from '../components/ProductDetail'
 
@@ -10,16 +11,20 @@ export default function ProductDetailPage() {
   const [product, setProduct] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  async function load() {
-    setLoading(true)
-    try {
-      setProduct(await getProduct(id))
-    } finally {
-      setLoading(false)
-    }
-  }
   useEffect(() => {
-    load()
+    async function loadProduct() {
+      setLoading(true)
+      try {
+        const productData = await getProduct(id)
+        setProduct(productData)
+      } catch (error) {
+        console.error('Error loading product:', error)
+        toast.error('Error al cargar el producto')
+      } finally {
+        setLoading(false)
+      }
+    }
+    loadProduct()
   }, [id])
 
   return (
